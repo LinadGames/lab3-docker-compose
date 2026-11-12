@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UE Assets — оголошення</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>UE Assets — оголошення</h1>
+    <p>Дані завантажуються з PostgreSQL через <code>/api/announcements</code></p>
+  </header>
+  <main id="list"><p>Завантаження…</p></main>
+
+  <script>
+    fetch('/api/announcements')
+      .then(r => r.json())
+      .then(items => {
+        const list = document.getElementById('list');
+        list.innerHTML = '';
+        if (!Array.isArray(items) || items.length === 0) {
+          list.textContent = 'Записів немає';
+          return;
+        }
+        for (const a of items) {
+          const card = document.createElement('article');
+          const h = document.createElement('h2');
+          const p = document.createElement('p');
+          const t = document.createElement('time');
+          h.textContent = `#${a.id} ${a.title}`;
+          p.textContent = a.body;
+          t.textContent = new Date(a.created_at).toLocaleString('uk-UA');
+          card.append(h, p, t);
+          list.append(card);
+        }
+      })
+      .catch(() => { document.getElementById('list').textContent = 'Помилка завантаження'; });
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "lab3-docker-compose",
+  "version": "1.0.0",
+  "description": "ЛР3: вебзастосунок + PostgreSQL у Docker Compose",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "author": "Внуков Данііл, ПІ-433",
+  "dependencies": {
+    "express": "^4.22.3",
+    "pg": "^8.23.1"
+  },
+  "private": true
+}
